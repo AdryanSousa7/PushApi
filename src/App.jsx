@@ -1,37 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
+// Puxando a rota da api
+import api from './api';
+
+// Import do charactercadr para exibir as imagens 
 import CharacterCard from './components/CharacterCard';
+
+// Import para aparecer a descrição dos persongens
+import { customDescriptions } from './descriptions';
+
+// Import da estilização
+import './index.css';
 
 function App() {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/Characters")
-      .then(response => {
-        console.log('Dados da API:', response.data);
-        setCharacters(response.data);
+    api.get('/api/characters')
+      .then(res => {
+        const data = res.data.items || res.data;
+        const mapped = data.map(c => ({
+          ...c,
+          description: customDescriptions[c.name] || c.description
+        }));
+        setCharacters(mapped);
       })
-      .catch(error => {
-        console.error('Erro ao buscar personagens:', error);
-      });
+      .catch(console.error);
   }, []);
-  
 
   return (
-    <div>
-      <h1>Personagens de Dragon Ball</h1>
-      
-      {Array.isArray(characters) ? (
-        characters.map(char => (
-          <div key={char.id}>
-            <h2>{char.name}</h2>
-            <img src={char.image} alt={char.name} />
-          </div>
-        ))
+    <div className="container">
+      <h1 className="title">Personagens de Dragon Ball</h1>
+      {characters.length > 0 ? (
+        <div className="grid">
+          {characters.map(char => (
+            <CharacterCard key={char.id} character={char} />
+          ))}
+        </div>
       ) : (
-        <p>Carregando...</p>
+        <p className="loading">Carregando...</p>
       )}
     </div>
   );
 }
-export default App;  
+
+export default App;

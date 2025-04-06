@@ -1,33 +1,109 @@
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to top, #F7A35C, #FFA94D); /* Laranja Suave com degradê */
+  color: #FFFFFF;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.clouds {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: contain;
+  animation: moveClouds 60s linear infinite;
+  opacity: 0.25;
+  z-index: -1;
+}
+
+@keyframes moveClouds {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .container {
-  width: 90%;
-  margin: 20px auto;
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+.title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #FFD700;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  width: 250px;
-  padding: 20px;
-  text-align: left;
+  background: #072083;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-image {
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+.card img {
   width: 100%;
-  border-radius: 8px;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin-bottom: 0.5rem;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+}
+
+.card-planet {
+  font-size: 0.9rem;
+  color: #FFD700;
 }
