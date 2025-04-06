@@ -1,5 +1,5 @@
 import React from 'react';
-
+                
 // criando um componente chamado CharacterCard
 function CharacterCard({ character }) {
   return (
