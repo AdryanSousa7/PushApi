@@ -19,7 +19,7 @@ function CharacterCard({ character }) {
           </p>
         )}
       </div>
-    </div>
+    </div>   
   );
 }
 
